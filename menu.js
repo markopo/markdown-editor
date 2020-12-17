@@ -15,6 +15,14 @@ const template = [
                 click() {
                     shell.beep();
                 }
+            },
+            {
+                label: 'Debugging',
+                submenu: [
+                    {
+                        role: 'toggleDevTools'
+                    }
+                ]
             }
         ]
     }

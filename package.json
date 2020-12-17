@@ -14,6 +14,7 @@
     "electron-builder": "^22.9.1"
   },
   "dependencies": {
+    "marked": "^1.2.7",
     "simplemde": "^1.11.2"
   }
 }

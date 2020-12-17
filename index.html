@@ -20,9 +20,19 @@
         .col-50 {
             width:49%;
         }
+
+        #result {
+            margin: 0 10px;
+            padding: 0 20px;
+            border: 1px solid #666;
+            background: #f3efcb;
+            height: 500px;
+            overflow: auto;
+        }
     </style>
     <link rel="stylesheet" href="./node_modules/simplemde/dist/simplemde.min.css" >
     <script src="./node_modules/simplemde/dist/simplemde.min.js"></script>
+    <script src="./node_modules/marked/marked.min.js"></script>
 </head>
 <body>
      <header>
@@ -38,8 +48,14 @@
      </div>
 
      <script>
-         var editor = new SimpleMDE({
+         const editor = new SimpleMDE({
              element: document.getElementById('editor')
+         });
+
+         editor.codemirror.on("change", function() {
+             const value = editor.value();
+             console.log('value: ', value);
+             document.getElementById("result").innerHTML = marked(value);
          });
 
          console.log('editor: ', editor);
