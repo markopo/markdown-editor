@@ -48,17 +48,42 @@
      </div>
 
      <script>
+         // editor
          const editor = new SimpleMDE({
              element: document.getElementById('editor')
          });
 
          editor.codemirror.on("change", function() {
              const value = editor.value();
-             console.log('value: ', value);
              document.getElementById("result").innerHTML = marked(value);
          });
 
-         console.log('editor: ', editor);
+         // electron
+         const { ipcRenderer } = require('electron');
+
+         ipcRenderer.on('editor-event', ((event, args) => {
+             console.log('editor-event', args);
+
+              switch (args) {
+                  case 'toggle-bold':
+                      editor.toggleBold();
+                      break;
+                  case 'toggle-italic':
+                      editor.toggleItalic();
+                      break;
+                  case 'toggle-strikethrough':
+                      editor.toggleStrikethrough();
+                      break;
+                  default:
+                      console.log('nothing..', args);
+                      break;
+              }
+         }));
+
+
+
+
+
      </script>
 </body>
 </html>
