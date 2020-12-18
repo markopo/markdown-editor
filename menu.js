@@ -16,14 +16,6 @@ const template = [
                     shell.beep();
                 }
             },
-            {
-                label: 'Debugging',
-                submenu: [
-                    {
-                        role: 'toggleDevTools'
-                    }
-                ]
-            }
         ]
     }
 ];
@@ -38,7 +30,17 @@ if(process.platform === 'darwin') {
             { role: 'quit' }
         ]
     });
+}
 
+if(process.env.DEBUG) {
+    template.push( {
+        label: 'Debugging',
+        submenu: [
+            {
+                role: 'toggleDevTools'
+            }
+        ]
+    });
 }
 
 const menu = Menu.buildFromTemplate(template);

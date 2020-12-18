@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "DEBUG=true electron .",
     "build:macos": "electron-builder --macos --dir"
   },
   "keywords": [],
