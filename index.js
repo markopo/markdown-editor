@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, globalShortcut, BrowserWindow, Menu } = require('electron');
 const menu = require('./menu');
 
 let window;
@@ -14,6 +14,13 @@ app.on('ready', () => {
     });
 
     window.loadFile('index.html');
+
+    globalShortcut.register('CommandOrControl+S', () => {
+            console.log('Saving the file!');
+
+            const window = BrowserWindow.getFocusedWindow();
+            window.webContents.send('editor-event', 'save');
+    });
 
 });
 

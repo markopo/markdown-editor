@@ -74,6 +74,9 @@
                   case 'toggle-strikethrough':
                       editor.toggleStrikethrough();
                       break;
+                  case 'save':
+                      event.sender.send('save', editor.value());
+                      break;
                   default:
                       console.log('nothing..', args);
                       break;
