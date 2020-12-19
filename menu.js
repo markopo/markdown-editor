@@ -1,4 +1,4 @@
-const { app, Menu, shell, BrowserWindow, ipcMain } = require('electron');
+const { app, Menu, shell, BrowserWindow } = require('electron');
 
 const template = [
     {
@@ -18,6 +18,16 @@ const template = [
             },
         ]
     },
+    {
+        label: 'Debugging',
+        submenu: [
+            {
+                role: 'toggleDevTools'
+            }
+        ]
+    },
+    { type: 'separator' },
+    { role: 'reload', accelerator: 'Alt+R' },
     {
         label: 'Format',
         submenu: [
@@ -71,11 +81,7 @@ if(process.env.DEBUG) {
 
 const menu = Menu.buildFromTemplate(template);
 
-// events
-ipcMain.on('save', (event, args) => {
-    console.log('saving contents of the file!', args);
 
-});
 
 
 module.exports = menu;
