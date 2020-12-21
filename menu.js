@@ -1,3 +1,5 @@
+const openFile = require("./openFile");
+const saveFile = require("./saveFile");
 const { app, Menu, shell, BrowserWindow } = require('electron');
 
 const template = [
@@ -50,6 +52,23 @@ const template = [
                 click() {
                     const window = BrowserWindow.getFocusedWindow();
                     window.webContents.send('editor-event', { action: 'toggle-strikethrough', data: null});
+                }
+            }
+        ]
+    },
+    {
+        label: 'File',
+        submenu: [
+            {
+                label: 'Open',
+                click() {
+                    openFile();
+                }
+            },
+            {
+                label: 'Save',
+                click() {
+                    saveFile();
                 }
             }
         ]

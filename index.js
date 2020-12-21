@@ -6,6 +6,8 @@ const { app,
         dialog } = require('electron');
 const fs = require('fs');
 const menu = require('./menu');
+const saveFile = require("./saveFile");
+const openFile = require("./openFile");
 
 let window;
 
@@ -22,31 +24,11 @@ app.on('ready', () => {
     window.loadFile('index.html');
 
     globalShortcut.register('CommandOrControl+S', () => {
-            const window = BrowserWindow.getFocusedWindow();
-            window.webContents.send('editor-event',  {action: 'save', data: null });
+            saveFile();
     });
 
     globalShortcut.register('CommandOrControl+O', () => {
-           const window = BrowserWindow.getFocusedWindow();
-
-           const options = {
-               title: 'Pick a markdown file',
-               filters: [
-                   { name: 'Markdown files', extensions: ['md'] },
-                   { name: 'Text files', extensions: ['txt']}
-               ]
-           };
-
-           dialog.showOpenDialog(window, options)
-               .then(result => {
-                   const { canceled, filePaths } = result;
-
-                   if(canceled || !filePaths) return;
-
-                   const content = fs.readFileSync(filePaths[0]).toString();
-                   window.webContents.send('editor-event',  {action: 'open-file', data: content });
-               });
-
+            openFile();
     });
 
     // events
