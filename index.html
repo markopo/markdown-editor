@@ -63,8 +63,9 @@
 
          ipcRenderer.on('editor-event', ((event, args) => {
              console.log('editor-event', args);
+             const { action, data } = args;
 
-              switch (args) {
+              switch (action) {
                   case 'toggle-bold':
                       editor.toggleBold();
                       break;
@@ -76,6 +77,9 @@
                       break;
                   case 'save':
                       event.sender.send('save', editor.value());
+                      break;
+                  case 'open-file':
+                      editor.value(data);
                       break;
                   default:
                       console.log('nothing..', args);

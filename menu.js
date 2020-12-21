@@ -35,21 +35,21 @@ const template = [
                 label: 'Toggle Bold',
                 click() {
                     const window = BrowserWindow.getFocusedWindow();
-                    window.webContents.send('editor-event', 'toggle-bold');
+                    window.webContents.send('editor-event', { action: 'toggle-bold', data: null});
                 }
             },
             {
                 label: 'Toggle Italic',
                 click() {
                     const window = BrowserWindow.getFocusedWindow();
-                    window.webContents.send('editor-event', 'toggle-italic');
+                    window.webContents.send('editor-event', { action: 'toggle-italic', data: null});
                 }
             },
             {
                 label: 'Toggle Strikethrough',
                 click() {
                     const window = BrowserWindow.getFocusedWindow();
-                    window.webContents.send('editor-event', 'toggle-strikethrough');
+                    window.webContents.send('editor-event', { action: 'toggle-strikethrough', data: null});
                 }
             }
         ]

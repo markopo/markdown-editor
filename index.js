@@ -22,10 +22,31 @@ app.on('ready', () => {
     window.loadFile('index.html');
 
     globalShortcut.register('CommandOrControl+S', () => {
-            console.log('Saving the file!');
-
             const window = BrowserWindow.getFocusedWindow();
-            window.webContents.send('editor-event', 'save');
+            window.webContents.send('editor-event',  {action: 'save', data: null });
+    });
+
+    globalShortcut.register('CommandOrControl+O', () => {
+           const window = BrowserWindow.getFocusedWindow();
+
+           const options = {
+               title: 'Pick a markdown file',
+               filters: [
+                   { name: 'Markdown files', extensions: ['md'] },
+                   { name: 'Text files', extensions: ['txt']}
+               ]
+           };
+
+           dialog.showOpenDialog(window, options)
+               .then(result => {
+                   const { canceled, filePaths } = result;
+
+                   if(canceled || !filePaths) return;
+
+                   const content = fs.readFileSync(filePaths[0]).toString();
+                   window.webContents.send('editor-event',  {action: 'open-file', data: content });
+               });
+
     });
 
     // events
