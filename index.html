@@ -13,6 +13,11 @@
             flex-direction: column;
         }
 
+        body {
+            -webkit-user-select: none;
+            -webkit-app-region: drag;
+        }
+
         .container {
             display:flex;
         }
@@ -38,7 +43,7 @@
      <header>
          <h1>Markdown Editor</h1>
      </header>
-     <div class="container" >
+     <div class="container"  >
          <div class="col-50" >
              <textarea id="editor"></textarea>
          </div>
@@ -86,6 +91,43 @@
                       break;
               }
          }));
+
+         function dropHandler(event) {
+             event.preventDefault();
+             event.stopPropagation();
+
+             if(event.dataTransfer.items) {
+
+                 if(event.dataTransfer.items[0].kind === 'file') {
+
+                     const file = event.dataTransfer.items[0].getAsFile();
+
+                     if (file.type === 'text/markdown') {
+                         const reader = new FileReader();
+
+                         reader.onload = e => {
+                             const text = e.target.result;
+                             editor.value(text);
+                         }
+
+                         reader.readAsText(file);
+
+                     }
+
+                 }
+
+             }
+         }
+
+         document.addEventListener('drop', e => dropHandler(e));
+         document.addEventListener('dragover', e => {
+             e.preventDefault();
+             e.stopPropagation();
+         });
+         document.addEventListener('dragenter', (e) => {
+             console.log('dragenter: ', e);
+         });
+
 
      </script>
 </body>
